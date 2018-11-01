@@ -40,8 +40,7 @@ ctr = 1 ;
 for OdorIdx = 1:NumberOdors
     for n = 1:NumTrials
         pause(OdorOnset) ;
-%         dev.setChannelsOn(ValveConfigs{OdorIdx}) ;  %(ValveConfigs{OdorIdx}) MAY NOT BE THE RIGHT SYNTAX
-        dev.setChannelsOn(ValveConfigs(OdorIdx)) ;  %(ValveConfigs{OdorIdx}) MAY NOT BE THE RIGHT SYNTAX
+        dev.setChannelsOn(ValveConfigs(OdorIdx)) ;  % MAY NOT BE THE RIGHT SYNTAX        
         pause(OdorDuration)
         dev.setAllChannelsOff() ;
         pause(InterTrialInterval - OdorDuration)
