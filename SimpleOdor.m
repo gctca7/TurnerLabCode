@@ -30,17 +30,17 @@ dev.open()
 % Odor D: valve1/Op v2/Op v3/cl v4/Op
 
 % INDICES FOR WHICH VALVES TO OPEN FOR EACH ODOR PORT:
-OdorA = [0] ;
-OdorB = [0 2] ;
-OdorC = [0 1] ;
-OdorD = [0 1 3] ;
+OdorA = {0} ;
+OdorB = {0 2} ;
+OdorC = {0 1} ;
+OdorD = {0 1 3} ;
 ValveConfigs = {OdorA OdorB OdorC OdorD} ;
 
 ctr = 1 ; 
 for OdorIdx = 1:NumberOdors
     for n = 1:NumTrials
         pause(OdorOnset) ;
-        dev.setChannelsOn(ValveConfigs(OdorIdx)) ;  % MAY NOT BE THE RIGHT SYNTAX        
+        dev.setChannelsOn(ValveConfigs{OdorIdx}) ;  % CALLS INDIVIDUAL ELEMENTS OF THE ValveConfigs CELL ARRAY        
         pause(OdorDuration)
         dev.setAllChannelsOff() ;
         pause(InterTrialInterval - OdorDuration)
