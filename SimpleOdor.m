@@ -26,18 +26,18 @@ serial_port = 'COM5'                % I CHECKED WHICH PORT TO USE JUST BY UNPLUG
 dev = ModularClient(serial_port) ;  % CREATES A CLIENT OBJECT
 dev.open()
 
+% RETURN INDICES OF ODORS YOU WANT TO DELIVER i.e. OdorChoices
+OdorChoices = varargin ; 
+OdorList = ["a","b","c","d"] ;
+TF = contains(OdorList,Choices,'IgnoreCase',true) ; 
+OdorIdx = find(TF) ; 
+
 % CHANNEL CONFIGURATIONS
 % THIS DESCRIBES WHICH OPEN/CLOSED STATE OF THE FOUR VALVES FOR EACH OF THE FOUR DIFFERENT ODORS
 % Odor A: valve1/Op v2/cl v3/cl v4/cl
 % Odor B: valve1/Op v2/cl v3/Op v4/cl
 % Odor C: valve1/Op v2/Op v3/cl v4/cl
 % Odor D: valve1/Op v2/Op v3/cl v4/Op
-
-% RETURN INDICES OF ODORS YOU WANT TO DELIVER i.e. OdorChoices
-OdorChoices = varargin ; 
-OdorList = ["a","b","c","d"] ;
-TF = contains(OdorList,Choices,'IgnoreCase',true) ; 
-OdorIdx = find(TF) ; 
 
 % INDICES FOR WHICH VALVES TO OPEN FOR EACH ODOR PORT:
 OdorA = {0} ;
