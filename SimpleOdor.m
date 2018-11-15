@@ -35,8 +35,8 @@ dev.open()
 
 % RETURN INDICES OF ODORS YOU WANT TO DELIVER i.e. OdorChoices
 OdorChoices = varargin ; 
-OdorList = ["a", "b","c","d"] ;
-TF = contains(OdorList,Choices,'IgnoreCase',true)
+OdorList = ["a","b","c","d"] ;
+TF = contains(OdorList,Choices,'IgnoreCase',true) ; 
 OdorIdx = find(TF) ; 
 
 % INDICES FOR WHICH VALVES TO OPEN FOR EACH ODOR PORT:
@@ -53,7 +53,7 @@ for ctr = 1:NumberOdors
         pause(OdorDuration)
         dev.setAllChannelsOff() ;
         pause(InterTrialInterval - OdorDuration)
-        disp(['Trial ' num2str(ctr*n) ' of ' num2str(NumberOdors*NumTrials)]) ; 
+        disp(['Trial ' num2str(ctr * n) ' of ' num2str(NumberOdors * NumTrials)]) ; 
     end
 end
 
