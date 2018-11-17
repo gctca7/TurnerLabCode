@@ -5,7 +5,7 @@ function SimpleOdor(OdorOnset, OdorDuration, InterTrialInterval, NumTrials, vara
 % OdorOnset: Time when valves open in SECONDS
 % OdorDuration: In SECONDS
 % InterTrialInterval: SECONDS between Trial starts
-% NumTrials: Number of odor presentation repeats.  
+% NumTrials: Number of odor presentation repeats.
 
 % NOTE: Odors currently delivered in blocks.  Order is a>b>c>d even if
 % varagin entered in a different order
@@ -22,15 +22,15 @@ disp(['Presenting ' num2str(NumberOdors) ' odors'])
 
 % ESTABLISH COMMUNICATION WITH ARDUINO
 % getAvailableComPorts()
-serial_port = 'COM5'                % I CHECKED WHICH PORT TO USE JUST BY UNPLUGGING THE DEVICE
+serial_port = 'COM5' ;              % I CHECKED WHICH PORT TO USE JUST BY UNPLUGGING THE DEVICE
 dev = ModularClient(serial_port) ;  % CREATES A CLIENT OBJECT
 dev.open()
 
 % RETURN INDICES OF ODORS YOU WANT TO DELIVER i.e. OdorChoices
-OdorChoices = varargin ; 
+OdorChoices = varargin ;
 OdorList = ["a","b","c","d"] ;
-TF = contains(OdorList,Choices,'IgnoreCase',true) ; 
-OdorIdx = find(TF) ; 
+TF = contains(OdorList,OdorChoices,'IgnoreCase',true) ;
+OdorIdx = find(TF) ;
 
 % CHANNEL CONFIGURATIONS
 % THIS DESCRIBES WHICH OPEN/CLOSED STATE OF THE FOUR VALVES FOR EACH OF THE FOUR DIFFERENT ODORS
@@ -42,18 +42,20 @@ OdorIdx = find(TF) ;
 % INDICES FOR WHICH VALVES TO OPEN FOR EACH ODOR PORT:
 OdorA = {0} ;
 OdorB = {0 2} ;
-OdorC = {0 1 3} ;
-OdorD = {0 1} ;
+OdorC = {0 1} ;
+OdorD = {0 1 3} ;
 ValveConfigs = {OdorA OdorB OdorC OdorD} ;
 
-for ctr = 1:NumberOdors
+ctr = 1 ;
+for Ods = 1:NumberOdors
     for n = 1:NumTrials
         pause(OdorOnset) ;
-        dev.setChannelsOn(ValveConfigs{OdorIdx(ctr)}) ;  %(ValveConfigs{OdorIdx}) MAY NOT BE THE RIGHT SYNTAX
+        disp(['Trial ' num2str(ctr) ' of ' num2str(NumberOdors * NumTrials)]) ;
+        dev.setChannelsOn(ValveConfigs{OdorIdx(Ods)}) ;  %(ValveConfigs{OdorIdx}) MAY NOT BE THE RIGHT SYNTAX
         pause(OdorDuration)
         dev.setAllChannelsOff() ;
         pause(InterTrialInterval - OdorDuration)
-        disp(['Trial ' num2str(ctr * n) ' of ' num2str(NumberOdors * NumTrials)]) ; 
+        ctr = ctr + 1 ;
     end
 end
 
